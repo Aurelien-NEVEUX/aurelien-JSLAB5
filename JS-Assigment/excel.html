@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <title>Excel</title>
+ <style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+    }
+
+    .container {
+        width: 400px;
+        margin: 100px auto;
+        padding: 20px;
+        background: linear-gradient(to bottom, #4A90E2, #003366);
+        border-radius: 10px;
+        color: white;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    .dark-mode {
+    background-color: #333;
+    color: white;
+}
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 24px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+
+    input[type="text"] {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+
+    .radio-group {
+        margin-bottom: 15px;
+    }
+
+    .radio-group label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    input[type="radio"] {
+        margin-right: 5px;
+    }
+
+    button {
+        padding: 10px;
+        width: 100%;
+        background-color: #007BFF;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
+    #result {
+        margin-top: 20px;
+        padding: 10px;
+        background-color: white;
+        color: black;
+        border-radius: 5px;
+        min-height: 30px;
+    }
+</style>
+
+</head>
+<body>
+ <header>
+ <nav>
+ <ul>
+ <li><a href="index.html">Home</a></li>
+ <li><a href="excel.html">Excel</a></li>
+ </ul>
+ </nav>
+ </header>
+ <main>
+    <div class="container">
+        <h2>Excel Functions</h2>
+        <button id="theme-toggle">Switch to Dark Mode</button>
+        <label for="numbers">Enter your numbers separated by spaces:</label>
+        <input type="text" id="numbers" placeholder="e.g., 23 67 98 90 56">
+
+        <div class="radio-group">
+            <label><input type="radio" id="sum" name="operation" checked> AutoSum</label>
+            <label><input type="radio" id="avg" name="operation"> Average</label>
+            <label><input type="radio" id="max" name="operation"> Max</label>
+            <label><input type="radio" id="min" name="operation"> Min</label>
+        </div>
+
+        <button onclick="calculate()">Calculate</button>
+
+        <div id="result">Result will be printed here</div>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+    const themeToggleButton = document.getElementById('theme-toggle');
+    const body = document.body;
+
+    // Attach event listener to the theme toggle button
+    themeToggleButton.addEventListener('click', () => {
+        body.classList.toggle('dark-mode');
+        if (body.classList.contains('dark-mode')) {
+            themeToggleButton.textContent = 'Switch to Light Mode';
+        } else {
+            themeToggleButton.textContent = 'Switch to Dark Mode';
+        }
+    })});
+
+
+function calculate() {
+    // Declare a variable to store the result
+    let result;
+
+    // Get the user input and trim whitespace
+    let numberStr = document.getElementById('numbers').value.trim();
+
+    // Check if the input is empty
+    if (!numberStr) {
+        alert("Please enter numbers separated by spaces.");
+        return;
+    }
+
+    // Convert the string input into an array of strings and remove any extra spaces
+    let numberArr = numberStr.split(' ');
+
+    // Create tempArr, ensuring only valid numbers are included
+    let tempArr = [];
+    for (let i = 0; i < numberArr.length; i++) {
+        if (numberArr[i] !== "" && !isNaN(numberArr[i])) {
+            tempArr.push(Number(numberArr[i]));
+        }
+    }
+
+    // If tempArr is empty, alert the user
+    if (tempArr.length === 0) {
+        alert("Please enter valid numbers.");
+        return;
+    }
+
+    // Check which radio button is selected and calculate the result accordingly
+    if (document.getElementById('sum').checked) {
+        result = tempArr.reduce((a, b) => a + b, 0); // AutoSum calculation
+    } else if (document.getElementById('avg').checked) {
+        result = tempArr.reduce((a, b) => a + b, 0) / tempArr.length; // Average calculation
+    } else if (document.getElementById('max').checked) {
+        result = Math.max(...tempArr); // Max calculation
+    } else if (document.getElementById('min').checked) {
+        result = Math.min(...tempArr); // Min calculation
+    }
+
+    // Display the result in the result div
+    document.getElementById('result').innerText = `Result: ${result}`;
+}
+    </script>
+ </main>
+ <footer>
+ <p>
+ ILAC & EFREI - HTML, CSS, and JavaScript Assignment - Your group or name(s)
+ </p>
+ </footer>
+
+</body>
+</html>

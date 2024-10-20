@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <title>Index</title>
+ <style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+    }
+
+    form {
+        width: 300px;
+        margin: 0 auto;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+
+    input[type="text"], input[type="email"] {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    .radio-group {
+        margin-bottom: 10px;
+    }
+
+    .radio-group label {
+        display: inline-block;
+        margin-right: 10px;
+        font-weight: normal;
+    }
+
+    input[type="radio"] {
+        margin-right: 5px;
+    }
+
+    button {
+        padding: 10px 15px;
+        margin-right: 10px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .send-btn {
+        background-color: #28a745;
+        color: white;
+    }
+
+    .reset-btn {
+        background-color: #dc3545;
+        color: white;
+    }
+</style>
+
+</head>
+<body>
+ <header>
+ <nav>
+ <ul>
+ <li><a href="index.html">Home</a></li>
+ <li><a href="excel.html">Excel</a></li>
+ </ul>
+ </nav>
+ </header>
+ <main>
+    <h2>Membership Form</h2>
+
+    <form id="main-form" name="mainform">
+        <!-- First Name -->
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" name="firstName" required>
+
+        <!-- Last Name -->
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" name="lastName" required>
+
+        <!-- Email -->
+        <label for="email">Email Address:</label>
+        <input type="email" id="email" name="email" required>
+
+        <!-- Address -->
+        <label for="address">Address:</label>
+        <input type="text" id="address" name="address" required>
+
+        <!-- City -->
+        <label for="city">City:</label>
+        <input type="text" id="city" name="city" required>
+
+        <!-- Province -->
+        <label for="province">Province:</label>
+        <input type="text" id="province" name="province" required>
+
+        <!-- Membership options -->
+        <div class="radio-group">
+            <label for="membership">Membership Type:</label>
+            <label><input type="radio" id="premium" name="membership" value="premium" checked> Premium Membership</label>
+            <label><input type="radio" id="standard" name="membership" value="standard"> Standard Membership</label>
+            <label><input type="radio" id="basic" name="membership" value="basic"> Basic Membership</label>
+        </div>
+
+        <!-- Buttons -->
+        <button type="button" class="send-btn" onclick="userForm()">Send</button>
+        <button type="reset" class="reset-btn">Cancel</button>
+    </form>
+
+    <script>
+        document.querySelector('.send-btn').addEventListener('click', userForm);
+
+function userForm() {
+    // Get form values
+    const firstName = document.getElementById('firstName').value;
+    const lastName = document.getElementById('lastName').value;
+    const email = document.getElementById('email').value;
+    const address = document.getElementById('address').value;
+    const city = document.getElementById('city').value;
+    const province = document.getElementById('province').value;
+    const membership = document.querySelector('input[name="membership"]:checked').value;
+
+    // Format the output
+    const fullName = `${firstName} ${lastName}`;
+    const fullAddress = `${address}, ${city}, ${province}`;
+
+    // Display the output
+    const outputDiv = document.getElementById('output');
+    outputDiv.style.display = 'block';
+    outputDiv.innerHTML = `
+        <h3>Submitted Information</h3>
+        <p><strong>Full Name:</strong> ${fullName}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Address:</strong> ${fullAddress}</p>
+        <p><strong>Membership:</strong> ${membership}</p>
+    `;
+}
+    </script>
+
+ <div id="output">
+
+ </div>
+ </main>
+ <footer>
+ <p>
+ ILAC & EFREI - HTML, CSS, and JavaScript Assignment - Aurélien Neveux
+ </p>
+ </footer>
+
+</body>
+</html>
